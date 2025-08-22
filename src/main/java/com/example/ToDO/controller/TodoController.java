@@ -3,6 +3,8 @@ package com.example.ToDO.controller;
 import com.example.ToDO.model.Todo;
 import com.example.ToDO.service.TodoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -39,14 +41,26 @@ public class TodoController {
         Todo existingTodo = service.findAll().stream()
             .filter(t -> t.getId().equals(id))
             .findFirst()
-            .orElseThrow(() -> new RuntimeException("Todo not found"));
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Todo not found with id: " + id));
 
-        // 檢查是更新內容還是狀態
-        if (request.containsKey("title")) {
-            existingTodo.setTitle((String) request.get("title"));
+        if (!request.containsKey("title") && !request.containsKey("done")) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Update request must contain either 'title' or 'done' field");
         }
+
+        if (request.containsKey("title")) {
+            String title = (String) request.get("title");
+            if (title == null || title.trim().isEmpty()) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Title cannot be empty");
+            }
+            existingTodo.setTitle(title);
+        }
+
         if (request.containsKey("done")) {
-            existingTodo.setDone((Boolean) request.get("done"));
+            Boolean done = (Boolean) request.get("done");
+            if (done == null) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Done status cannot be null");
+            }
+            existingTodo.setDone(done);
         }
         
         return service.update(id, existingTodo);
