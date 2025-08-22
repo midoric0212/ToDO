@@ -1,0 +1,90 @@
+*{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    box-sizing: border-box;
+    background-color: aliceblue;
+}
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 10%;
+}
+.title {
+    font-size: 35px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.subtitle {
+    padding-bottom: 20px;
+    font-size: 14px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+#inputField {
+    border: 0;
+    padding: 7px 10px;
+    margin-right: 7px;
+    border: 1px solid #ccc;
+    border-radius: 30px;
+}
+#addBtn {
+    border-radius: 50%;
+    border: 1px solid #ccc;
+    width: 30px;
+    height: 30px;
+    text-decoration: none;
+    background: rgba(red, green, blue, .0);
+    color: black;
+    cursor: pointer;
+}
+.todo_hr {
+    border-top: 1px solid black;
+    width: 180px;
+    margin: 13px auto;
+    margin-bottom: 13px;
+}
+.todo_Items {
+    display: flex;
+    flex-direction: column;
+    width: 220px; 
+}
+.item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; 
+    width: 220px; 
+    padding: 4px;
+    border-bottom: 1px solid #ddd; 
+}
+.item label {
+    flex-grow: 1; 
+    font-size: 14px;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: left; 
+    padding-left: 10px; 
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis; 
+}
+
+.checked label {
+    text-decoration: line-through;
+    color: gray;
+}
+
+.deleteBtn {
+    display: inline-block;
+    color: black;
+    border: none;
+    padding: 6px 14px;
+    margin: 4px 2px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 13px;
+    background: rgba(red, green, blue, .0);
+    cursor: pointer;
+    transition-duration: 0.4s;
+}
+.deleteBtn:hover {
+    background-color: #fff;
+}
