@@ -35,9 +35,12 @@ document.addEventListener("DOMContentLoaded", function() {
         if (todo.done) li.classList.add("checked");
 
         li.innerHTML = `
-            <input type="checkbox" class="checkBtn" ${todo.done ? "checked" : ""}>
+            <div class="checkbox-wrapper">
+                <input type="checkbox" class="checkBtn" ${todo.done ? "checked" : ""}>
+                <span class="checkbox-icon"></span>
+            </div>
             <label class="editable">${todo.title}</label>
-            <button class="deleteBtn">x</button>
+            <button class="deleteBtn"><img src="/images/delete.png" alt="delete" width="15" height="15"></button>
         `;
 
         const firstUnchecked = todo_list.querySelector("li:not(.checked)");
@@ -47,6 +50,21 @@ document.addEventListener("DOMContentLoaded", function() {
         li.querySelector(".deleteBtn").addEventListener("click", deleteTodoItems);
         li.querySelector(".editable").addEventListener("click", editTodoItem);
         li.querySelector(".checkBtn").addEventListener("change", toggleDone);
+        li.querySelector(".checkbox-icon").addEventListener("click", function() {
+            const checkbox = li.querySelector(".checkBtn");
+            checkbox.checked = !checkbox.checked;
+            checkbox.dispatchEvent(new Event('change'));
+        });
+        
+        // 設置初始勾勾符號狀態
+        const checkboxIcon = li.querySelector(".checkbox-icon");
+        if (todo.done) {
+            checkboxIcon.textContent = "☑";
+            checkboxIcon.style.color = "rgb(11, 158, 169)";
+        } else {
+            checkboxIcon.textContent = "☐";
+            checkboxIcon.style.color = "#666";
+        }
     }
 
     function toggleDone(event) {
@@ -55,6 +73,16 @@ document.addEventListener("DOMContentLoaded", function() {
         const done = event.target.checked;
 
         li.classList.toggle("checked", done);
+
+        // 更新勾勾符號狀態
+        const checkboxIcon = li.querySelector(".checkbox-icon");
+        if (done) {
+            checkboxIcon.textContent = "☑";
+            checkboxIcon.style.color = "rgb(11, 158, 169)";
+        } else {
+            checkboxIcon.textContent = "☐";
+            checkboxIcon.style.color = "#666";
+        }
 
         const firstUnchecked = todo_list.querySelector("li:not(.checked)");
         if (!done && firstUnchecked) todo_list.insertBefore(li, firstUnchecked);
@@ -86,11 +114,11 @@ document.addEventListener("DOMContentLoaded", function() {
         input.type = "text";
         input.value = currentText;
         input.className = "edit-input";
-        input.style.width = "100%";
-        input.style.border = "1px solid #ccc";
-        input.style.padding = "2px 5px";
+        input.style.width = "150px";
+        input.style.padding = "2px 6px";
         input.style.fontSize = "inherit";
         input.style.fontFamily = "inherit";
+        input.style.marginLeft = "26px";
 
         label.style.display = "none";
         label.parentNode.insertBefore(input, label);

@@ -33,21 +33,21 @@
     width: 30px;
     height: 30px;
     text-decoration: none;
-    background: rgba(red, green, blue, .0);
     color: black;
     cursor: pointer;
 }
 .todo_hr {
-    border-top: 1px solid black;
     width: 180px;
-    margin: 13px auto;
-    margin-bottom: 13px;
+    margin: 10px auto;
+    margin-bottom: 3px;
 }
-.todo_Items {
+
+.todo_items {
     display: flex;
     flex-direction: column;
     width: 220px; 
 }
+
 .item {
     display: flex;
     align-items: center;
@@ -55,6 +55,7 @@
     width: 220px; 
     padding: 4px;
     border-bottom: 1px solid #ddd; 
+    position: relative; 
 }
 .item label {
     flex-grow: 1; 
@@ -67,9 +68,32 @@
     text-overflow: ellipsis; 
 }
 
+.checkBtn {
+    display: none; /* 隱藏原始的 checkbox */
+}   
+
 .checked label {
     text-decoration: line-through;
     color: gray;
+}
+
+.checkbox-wrapper {
+    position: relative;
+    margin-right: 8px;
+}
+
+.checkbox-icon {
+    font-size: 18px;
+    cursor: pointer;
+    color: #666;
+    user-select: none; /* 防止文字被選中 */
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+.checkbox-icon:hover {
+    color: rgb(11, 158, 169);
 }
 
 .deleteBtn {
@@ -88,3 +112,5 @@
 .deleteBtn:hover {
     background-color: #fff;
 }
+
+

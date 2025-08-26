@@ -2,21 +2,20 @@ package com.example.ToDO.service;
 
 import com.example.ToDO.model.Todo;
 import com.example.ToDO.repository.TodoRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
 @Service
 public class TodoService {
-    @Autowired
-    private TodoRepository repo;
+    private final TodoRepository repo;
 
     public TodoService(TodoRepository repo) {
         this.repo = repo;
     }
 
-    // 增刪改查方法
     public List<Todo> findAll() {
         return repo.findAll();
     }
@@ -30,10 +29,13 @@ public class TodoService {
             todo.setTitle(newTodo.getTitle());
             todo.setDone(newTodo.isDone());
             return repo.save(todo);
-        }).orElseThrow(() -> new RuntimeException("Not Found"));
+        }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Todo not found with id: " + id));
     }
 
     public void delete(Long id) {
+        if (repo.findById(id).isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Todo not found with id: " + id);
+        }
         repo.deleteById(id);
     }
 }
