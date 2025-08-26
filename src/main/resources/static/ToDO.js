@@ -2,13 +2,11 @@ document.addEventListener("DOMContentLoaded", function() {
     const addButton = document.getElementById("addBtn");
     const todo_list = document.getElementById("todo_list");
 
-    // 1️⃣ 從後端取得現有 ToDo 清單
     fetch('/api/todos')
         .then(res => res.json())
         .then(data => data.forEach(todo => addTodoItemFromServer(todo)))
         .catch(err => console.error("取得 ToDo 清單失敗:", err));
 
-    // 2️⃣ 新增按鈕事件
     addButton.addEventListener("click", addTodoItems);
 
     function addTodoItems() {

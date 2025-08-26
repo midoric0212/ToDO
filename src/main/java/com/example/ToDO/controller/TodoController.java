@@ -2,7 +2,6 @@ package com.example.ToDO.controller;
 
 import com.example.ToDO.model.Todo;
 import com.example.ToDO.service.TodoService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.bind.annotation.*;
@@ -14,8 +13,7 @@ import java.util.Map;
 @RequestMapping("/api/todos")
 @CrossOrigin(origins = "*")
 public class TodoController {
-    @Autowired
-    private TodoService service;
+    private final TodoService service;
 
     public TodoController(TodoService service) {
         this.service = service;

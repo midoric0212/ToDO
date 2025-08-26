@@ -69,7 +69,7 @@
 }
 
 .checkBtn {
-    display: none; /* 隱藏原始的 checkbox */
+    display: none; 
 }   
 
 .checked label {
@@ -86,7 +86,7 @@
     font-size: 18px;
     cursor: pointer;
     color: #666;
-    user-select: none; /* 防止文字被選中 */
+    user-select: none; 
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
